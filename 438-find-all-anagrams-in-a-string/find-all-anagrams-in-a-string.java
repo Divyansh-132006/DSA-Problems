@@ -31,49 +31,48 @@
 //     }
 // }
 
-
 class Solution {
+
+    public boolean fxn(HashMap<Character, Integer> hash) {
+        for (int val : hash.values()) {
+            if (val != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     public List<Integer> findAnagrams(String s, String p) {
         int n = s.length();
         int k = p.length();
-        int i=0, j=0;
+        int i = 0, j = 0;
         ArrayList<Integer> res = new ArrayList<>();
         HashMap<Character, Integer> hash = new HashMap<>();
-        for(int x=0; x<k; x++){
-            hash.put(p.charAt(x), hash.getOrDefault(p.charAt(x), 0)+1);
+        for (int z = 0; z <k; z++) {
+            hash.put(p.charAt(z), hash.getOrDefault(p.charAt(z), 0) + 1);
         }
-        int count = k;
-        while(j<n){
-            if(!hash.containsKey(s.charAt(j))){
+        while (j < n) {
+            if (!hash.containsKey(s.charAt(j))) {
                 hash.clear();
-                for(int x=0; x<k; x++){
-                    hash.put(p.charAt(x), hash.getOrDefault(p.charAt(x), 0)+1);
+                for (int z = 0; z < k; z++) {
+                    hash.put(p.charAt(z), hash.getOrDefault(p.charAt(z), 0) + 1);
                 }
-                count = k;
                 i = j+1;
                 j++;
                 continue;
             }
-            if(hash.get(s.charAt(j)) > 0){
-                count--;
-            }
-            hash.put(s.charAt(j), hash.get(s.charAt(j))-1);
-            if(j-i+1 < k){
-                j++;
-            }
-            else if(j-i+1 == k){
-                if(count == 0){
+            hash.put(s.charAt(j), hash.get(s.charAt(j)) - 1);
+            if (j-i+1<k) j++;
+            else if (j-i+1==k) {
+                if (fxn(hash)) {
                     res.add(i);
                 }
-                if(hash.get(s.charAt(i)) >= 0){
-                    count++;
-                }
-                hash.put(s.charAt(i), hash.get(s.charAt(i))+1);
+                hash.put(s.charAt(i), hash.get(s.charAt(i)) + 1);
                 i++;
                 j++;
             }
         }
-
         return res;
     }
 }
+
+
